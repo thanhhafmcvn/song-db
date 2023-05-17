@@ -9,8 +9,7 @@ const Form = (props) => {
     release: "",
   });
   const { selectedItem, setSelectedItem } = firebaseZustandStore();
-  // console.log('selected item',selectedItem)
-  console.log("new song", newSong.release);
+
   useEffect(() => {
     if (selectedItem) {
       setNewSong(selectedItem);
@@ -63,7 +62,6 @@ const Form = (props) => {
         <button
           onClick={() => {
             if (Object.keys(selectedItem) != 0) {
-              console.log("updated song");
               updateSong(selectedItem.id, newSong);
             } else {
               if (typeof newSong.release == "undefined" && newSong.release < 1000) {
