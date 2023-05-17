@@ -6,7 +6,7 @@ const Form = (props) => {
     name: "",
     album: "",
     singer: "",
-    release: 0,
+    release: "",
   });
   const { selectedItem, setSelectedItem } = firebaseZustandStore();
   // console.log('selected item',selectedItem)
@@ -39,7 +39,7 @@ const Form = (props) => {
         value={newSong.singer || ''}
         onChange={(e) => setNewSong({ ...newSong, singer: e.target.value })}
       ></input>
-      <label>Release</label>
+      <label>Release year</label>
       <input
         type="number"
         min="1900"
@@ -47,7 +47,7 @@ const Form = (props) => {
         step="1"
         className="border-black border-2"
         value={newSong.release || ''}
-        onChange={(e) => setNewSong({ ...newSong, release: e.target.value })}
+        onChange={(e) => {setNewSong({...newSong, release: e.target.value})}} 
       ></input>
       <div className="w-[400px] h-[200px] flex flex-1 justify-around my-[20px]">
         <button onClick={() => {setSelectedItem({})}}>Cancel editing</button>
@@ -58,10 +58,9 @@ const Form = (props) => {
                 console.log('updated song')
                 updateSong(selectedItem.id, newSong);
             } else {
-              console.log('added song')
                 addSong(newSong);
               }
-            setSelectedItem({});
+            setSelectedItem({})
           }}
         >
           {Object.keys(selectedItem) != 0 ? "Update song" : "Add new song"}
@@ -69,6 +68,7 @@ const Form = (props) => {
         <button
           onClick={() => {
             deleteSong(selectedItem.id);
+            setSelectedItem({});
           }}
         >
           Delete song
