@@ -9,7 +9,6 @@ const Form = (props) => {
     release: "",
   });
   const { selectedItem, setSelectedItem } = firebaseZustandStore();
-
   useEffect(() => {
     if (selectedItem) {
       setNewSong(selectedItem);
@@ -61,13 +60,16 @@ const Form = (props) => {
 
         <button
           onClick={() => {
-            if (Object.keys(selectedItem) != 0) {
+            if (Object.keys(selectedItem).length != 0) {
               updateSong(selectedItem.id, newSong);
             } else {
-              if (typeof newSong.release == "undefined" && newSong.release < 1000) {
-                alert("Please type a valid year");
-              } else {
+              if (
+                Object.keys(newSong).length == 4
+              ) {
                 addSong(newSong);
+              } else {
+                 alert("Please type valid information");
+                 console.log(Object.keys(newSong));
               }
             }
             setSelectedItem({});
